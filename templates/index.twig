@@ -33,8 +33,38 @@
               {{ entry.subtitle }}
             </h3>
           </a>
-          
-          {{ entry.blogBody }}
+
+
+          <!-- Blog Content -->
+          {% for block in entry.blogBody %}
+          	{% if block.type == "text" %}
+		      {{ block.contentBlock }}
+		    {% elseif block.type == "video" %}
+		      {% set asset = block.videoEmbed.first() %}
+		      {% set embed = craft.embeddedAssets.get(asset) %}	
+		      {% if embed %}
+	            <div id="video-box" class="videobox">
+	              {% set videoUrl = embed.getVideoUrl([]) %}
+	              
+{# TODO: Scale iframe width/height based on viewport #}
+
+	              <iframe src="{{videoUrl}}" width="640" height="480" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+	              
+	              
+	            </div>
+	          {% endif %}	
+		    {% elseif block.type == "rawCode" %}
+		      {{ block.code | raw }}
+		    {% elseif block.type == "image" %}
+		      {% set images = block.contentImage %}
+		      {% for image in images %}
+		        <div class="boxVertical">        
+		          <img src="{{ image.getUrl }}" width="{{ image.getWidth('fit') }}" height="{{ image.getHeight('fit') }}" alt="{{ image.title }}" class="imageFull" />
+		         </div>
+		      {% endfor %}
+		    {% endif %}
+          	
+      	  {% endfor %}
 
           <p class="post-meta">Posted by
             <a href="#">{{ entry.author }}</a>
