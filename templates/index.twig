@@ -3,7 +3,7 @@
 {% block main %}
 
   <!-- Page Header -->
-  <header class="masthead" style="background-image: url('img/home-bg.jpg')">
+  <header class="masthead" style="background-image: url('img/coda-bg.png')">
     <div class="overlay"></div>
     <div class="container">
       <div class="row">
@@ -36,7 +36,7 @@
 
 
           <!-- Blog Content -->
-          {% for block in entry.blogBody %}
+          {# {% for block in entry.blogBody %}
           	{% if block.type == "text" %}
 		      {{ block.contentBlock }}
 		    {% elseif block.type == "video" %}
@@ -46,7 +46,6 @@
 	            <div id="video-box" class="videobox">
 	              {% set videoUrl = embed.getVideoUrl([]) %}
 	              
-{# TODO: Scale iframe width/height based on viewport #}
 
 	              <iframe src="{{videoUrl}}" width="640" height="480" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
 	              
@@ -64,7 +63,7 @@
 		      {% endfor %}
 		    {% endif %}
           	
-      	  {% endfor %}
+      	  {% endfor %} #}
 
           <p class="post-meta">Posted by
             <a href="#">{{ entry.author }}</a>

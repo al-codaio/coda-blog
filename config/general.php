@@ -45,4 +45,13 @@ return [
         // Set this to `false` to prevent administrative changes from being made on production
         'allowAdminChanges' => true,
     ],
+
+    // Local environment settings
+    'local' => [
+      // Base site URL
+      'siteUrl' => 'http://SITE_URL',
+
+      // Dev Mode (see https://craftcms.com/support/dev-mode)
+      'devMode' => true,
+    ],
 ];

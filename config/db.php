@@ -8,13 +8,21 @@
  * @see craft\config\DbConfig
  */
 
+preg_match('|postgres://([a-z0-9]*):([a-z0-9]*)@([^:]*):([0-9]*)/(.*)|i', getenv('DATABASE_URL'), $matches);
+
+$user = $matches[1];
+$password = $matches[2];
+$server = $matches[3];
+$port = $matches[4];
+$database = $matches[5];
+
 return [
-    'driver' => getenv('DB_DRIVER'),
-    'server' => getenv('DB_SERVER'),
-    'user' => getenv('DB_USER'),
-    'password' => getenv('DB_PASSWORD'),
-    'database' => getenv('DB_DATABASE'),
-    'schema' => getenv('DB_SCHEMA'),
-    'tablePrefix' => getenv('DB_TABLE_PREFIX'),
-    'port' => getenv('DB_PORT')
+  'driver' => "pgsql",
+  'server' => $server,
+  'user' => $user,
+  'password' => $password,
+  'database' => $database,
+  'schema' => getenv('DB_SCHEMA'),
+  'tablePrefix' => getenv('DB_TABLE_PREFIX'),
+  'port' => $port
 ];

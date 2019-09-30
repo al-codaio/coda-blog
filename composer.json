@@ -4,7 +4,8 @@
     "craftcms/cms": "3.3.4.1",
     "craftcms/redactor": "2.4.0",
     "spicyweb/craft-embedded-assets": "2.0.12",
-    "vlucas/phpdotenv": "^2.4.0"
+    "vlucas/phpdotenv": "^2.4.0",
+    "ext-imagick": "*"
   },
   "autoload": {
     "psr-4": {
