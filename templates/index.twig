@@ -2,23 +2,125 @@
 
 {% block main %}
 
-  <!-- Page Header -->
-  <header class="masthead" style="background-image: url('img/coda-bg.png')">
-    <div class="overlay"></div>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-          <div class="site-heading">
-            <h1>Coda Blog</h1>
-            <span class="subheading">A blog by Coda</span>
+<section class="site-section pt-5 pb-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="owl-carousel owl-theme home-slider">
+
+          {% for entry in craft.entries.section('blog').limit(10).all() %}
+            {% set mainImage = entry.featuredImage[0] %}
+
+          <div>
+            <a href="blog-single.html" class="a-block d-flex align-items-center height-lg" style="background-image: url('img/img_1.jpg'); ">
+              <div class="text half-to-full">
+                <span class="category mb-5">Food</span>
+                <div class="post-meta">
+                  
+                  <span class="author mr-2"><img src="img/person_1.jpg" alt="Colorlib"> Colorlib</span>&bullet;
+                  <span class="mr-2">March 15, 2018 </span> &bullet;
+                  <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
+                  
+                </div>
+                <h3>How to Find the Video Games of Your Youth</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem nobis, ut dicta eaque ipsa laudantium!</p>
+              </div>
+            </a>
           </div>
+
+          {% endfor %}
+
+
+
+          <div>
+            <a href="blog-single.html" class="a-block d-flex align-items-center height-lg" style="background-image: url('img/img_2.jpg'); ">
+              <div class="text half-to-full">
+                <span class="category mb-5">Travel</span>
+                <div class="post-meta">
+                  
+                  <span class="author mr-2"><img src="img/person_1.jpg" alt="Colorlib"> Colorlib</span>&bullet;
+                  <span class="mr-2">March 15, 2018 </span> &bullet;
+                  <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
+                  
+                </div>
+                <h3>How to Find the Video Games of Your Youth</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem nobis, ut dicta eaque ipsa laudantium!</p>
+              </div>
+            </a>
+          </div>
+          <div>
+            <a href="blog-single.html" class="a-block d-flex align-items-center height-lg" style="background-image: url('img/img_3.jpg'); ">
+              <div class="text half-to-full">
+                <span class="category mb-5">Sports</span>
+                <div class="post-meta">
+                  
+                  <span class="author mr-2"><img src="img/person_1.jpg" alt="Colorlib"> Colorlib</span>&bullet;
+                  <span class="mr-2">March 15, 2018 </span> &bullet;
+                  <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
+                  
+                </div>
+                <h3>How to Find the Video Games of Your Youth</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem nobis, ut dicta eaque ipsa laudantium!</p>
+              </div>
+            </a>
+          </div>
+
+
+
+
+        </div>
+        
+      </div>
+    </div>
+    
+  </div>
+
+
+</section>
+<!-- END section -->
+
+<section class="site-section py-sm">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h2 class="mb-4">Latest Posts</h2>
+      </div>
+    </div>
+    <div class="row blog-entries">
+      <div class="col-md-12 col-lg-8 main-content">
+        <div class="row">
+
+          {% for entry in craft.entries.section('blog').limit(10).all() %}
+            {% set mainImage = entry.featuredImage[0] %}
+          
+            <div class="col-md-6">
+              <a href="{{ entry.slug }}" class="blog-entry element-animate" data-animate-effect="fadeIn">
+                <img src="{{ mainImage.getUrl }}" alt="{{ mainImage.title}}">
+                <div class="blog-content-body">
+                  <div class="post-meta">
+                    <span class="author mr-2">
+                      <img src="img/person_1.jpg" alt="Colorlib"> {{ entry.author }}
+                    </span>&bullet;
+                    <span class="mr-2">{{ entry.postDate | date('M d, Y') }} </span> &bullet;
+                    <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
+                  </div>
+                  <h2>{{ entry.title }}</h2>
+                  <p>{{ entry.subtitle }}</p>
+                </div>
+              </a>
+            </div>
+
+          {% endfor %}
+
         </div>
       </div>
     </div>
-  </header>
+  </div>
+</section>
 
   <!-- Main Content -->
-  <div class="container">
+{#   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
 
@@ -34,49 +136,19 @@
             </h3>
           </a>
 
-
-          <!-- Blog Content -->
-          {# {% for block in entry.blogBody %}
-          	{% if block.type == "text" %}
-		      {{ block.contentBlock }}
-		    {% elseif block.type == "video" %}
-		      {% set asset = block.videoEmbed.first() %}
-		      {% set embed = craft.embeddedAssets.get(asset) %}	
-		      {% if embed %}
-	            <div id="video-box" class="videobox">
-	              {% set videoUrl = embed.getVideoUrl([]) %}
-	              
-
-	              <iframe src="{{videoUrl}}" width="640" height="480" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
-	              
-	              
-	            </div>
-	          {% endif %}	
-		    {% elseif block.type == "rawCode" %}
-		      {{ block.code | raw }}
-		    {% elseif block.type == "image" %}
-		      {% set images = block.contentImage %}
-		      {% for image in images %}
-		        <div class="boxVertical">        
-		          <img src="{{ image.getUrl }}" width="{{ image.getWidth('fit') }}" height="{{ image.getHeight('fit') }}" alt="{{ image.title }}" class="imageFull" />
-		         </div>
-		      {% endfor %}
-		    {% endif %}
-          	
-      	  {% endfor %} #}
-
           <p class="post-meta">Posted by
             <a href="#">{{ entry.author }}</a>
             on {{ entry.postDate | date('M d, Y') }}</p>
         </div>
         <hr>
 
-    	{% endfor %}
+    	{% endfor %} #}
 
         <!-- Pager -->
-        <div class="clearfix">
+        {# <div class="clearfix">
           <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
-        </div>
+        </div> #}
+
       </div>
     </div>
   </div>
